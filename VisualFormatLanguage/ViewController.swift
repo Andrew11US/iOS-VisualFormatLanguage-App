@@ -10,16 +10,42 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    let testBtn = UIButton()
+    let selectedImage = UIImageView(image: UIImage(named: "name"))
+    let topViewHolder = UIView()
+    let topTitleLabel = UILabel()
+    
+    var views = Dictionary<String, AnyObject>()
+    var constraints = [NSLayoutConstraint]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        self.view.backgroundColor = UIColor.green
+        self.topViewHolder.backgroundColor = UIColor.white
+        self.topViewHolder.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(topViewHolder)
+        self.views["topViewHolder"] = topViewHolder
+        
+        setConstraints()
     }
+    
+    func setConstraints() {
+        
+        /** Top View Holder **/
+        
+        addConstraints(format: "V:|-[topViewHolder(50)]")
+        addConstraints(format: "H:|-0-[topViewHolder]-0-|")
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        NSLayoutConstraint.activate(self.constraints)
     }
-
+    
+    func addConstraints(format: String) {
+        
+        let newConstraints = NSLayoutConstraint.constraints(withVisualFormat: format, options: [], metrics: nil, views: self.views)
+        
+        self.constraints += newConstraints
+    }
 
 }
 
